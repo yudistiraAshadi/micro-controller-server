@@ -18,9 +18,11 @@ class CreateDeviceGeoCoordinatesTable extends Migration
             $table->integer('device_id')->unsigned()->index();
             $table->decimal('latitude', 10, 6);
             $table->decimal('longitude', 10, 6);
-            $table->dateTime('created_at');
+            $table->timestamp('taken_at');
 
-            $table->foreign('device_id')->references('id')->on('devices');
+            $table->foreign('device_id')
+                ->references('id')->on('devices')
+                ->onDelete('cascade');
         });
     }
 
