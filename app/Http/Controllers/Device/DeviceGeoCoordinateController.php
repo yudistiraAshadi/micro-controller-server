@@ -22,8 +22,7 @@ class DeviceGeoCoordinateController extends Controller
     public function show($device_id)
     {
         $deviceGeoCoordinate = DeviceGeoCoordinate::where('device_id', $device_id)
-            ->orderBy('taken_at', 'desc')
-            ->firstorfail();
+            ->getNewest();
 
         return new DeviceGeoCoordinateResource($deviceGeoCoordinate);
     }

@@ -19,4 +19,9 @@ class DeviceGeoCoordinate extends Model
     {
         return $this->belongsTo('App\Device');
     }
+    
+    public function scopeGetNewest($query)
+    {
+        return $query->orderBy('taken_at', 'desc')->first();
+    }
 }

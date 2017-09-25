@@ -27,7 +27,7 @@
                 <div class="panel-heading">Device Locations</div>
 
                 <div class="panel-body">
-                    <div id="myMap" style="position:relative;width:700px;height:400px;"></div>
+                    <div id="myMap" style="position:relative;height:400px;"></div>
                 </div>
 
             </div>
@@ -35,7 +35,6 @@
     </div>
 </div>
 @endsection
-
 
 @push('scripts')
 <script type='text/javascript' 
@@ -45,8 +44,11 @@ async defer></script>
 <script type='text/javascript'>
     function GetMap() {
         var map = new Microsoft.Maps.Map('#myMap', {
-            credentials: "{{ env('BING_MAP_API_KEY') }}",
-            center: new Microsoft.Maps.Location(47.6149, -122.1941)
+            credentials: '{{ env('BING_MAP_API_KEY') }}',
+            center: new Microsoft.Maps.Location(
+                {{ $deviceGeoCoordinate->lat }}, 
+                {{ $deviceGeoCoordinate->lng }}
+            )   
         });
 
         var center = map.getCenter();
@@ -55,7 +57,8 @@ async defer></script>
         var pin = new Microsoft.Maps.Pushpin(center, {
             color: 'red',
             title: 'My Micro Controller',
-            text: '1'
+            subTitle: 'Taken at {{ $deviceGeoCoordinate->taken_at }}',
+            text: '{{ $device->id }}'
         });
 
         //Add the pushpin to the map
