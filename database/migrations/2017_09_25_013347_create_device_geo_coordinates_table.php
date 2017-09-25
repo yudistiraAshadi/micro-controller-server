@@ -16,8 +16,8 @@ class CreateDeviceGeoCoordinatesTable extends Migration
         Schema::create('device_geo_coordinates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('device_id')->unsigned()->index();
-            $table->decimal('latitude', 10, 6);
-            $table->decimal('longitude', 10, 6);
+            $table->decimal('lat', 10, 6);
+            $table->decimal('lng', 10, 6);
             $table->timestamp('taken_at');
 
             $table->foreign('device_id')

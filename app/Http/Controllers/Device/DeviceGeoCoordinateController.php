@@ -32,8 +32,8 @@ class DeviceGeoCoordinateController extends Controller
     {
         $request->validate([
             'device_id' => 'bail|required|integer|exists:devices,id',
-            'latitude' => 'required|numeric|min:-90|max:90',
-            'longitude' => 'required|numeric|min:-180|max:180'
+            'lat' => 'required|numeric|min:-90|max:90',
+            'lng' => 'required|numeric|min:-180|max:180'
         ]);
 
         $deviceGeoCoordinate = DeviceGeoCoordinate::create($request->all());

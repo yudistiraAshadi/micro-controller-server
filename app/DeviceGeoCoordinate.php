@@ -11,8 +11,8 @@ class DeviceGeoCoordinate extends Model
 
     protected $fillable = [
         'device_id',
-        'latitude',
-        'longitude'
+        'lat',
+        'lng'
     ];
 
     public function device()

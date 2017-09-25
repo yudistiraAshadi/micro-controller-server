@@ -16,8 +16,8 @@ class DeviceGeoCoordinateResource extends Resource
     {
         return [
             'position' => [
-                'lat' => $this->latitude,
-                'lng' => $this->longitude,
+                'lat' => $this->lat,
+                'lng' => $this->lng,
             ],
             'taken_at' => $this->taken_at,
         ];

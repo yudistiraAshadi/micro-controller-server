@@ -21,14 +21,13 @@ class DeviceResource extends Resource
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'device_geo_coordinates' => [
+            'device_geo_coordinates' => 
                 DeviceGeoCoordinateResource::collection(
                     Device::find($this->id)
                         ->deviceGeoCoordinates()
                         ->orderBy('taken_at', 'desc')
                         ->get()
                 )
-            ]
         ];
     }
 }
