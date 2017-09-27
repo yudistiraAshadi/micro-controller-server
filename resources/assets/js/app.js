@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -16,7 +17,15 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('bing-map', require('./components/BingMap.vue'));
+Vue.component('coordinate-composer', require('./components/CoordinateComposer.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: function() {
+        return {
+            bingMapApiKey: 'AutpW7XvvMYgzgHiBr1bkKSdcj40UTxf4cAYiy5H8-sHADHVHgypR_GJnGDZoo5N',
+            deviceId: "1"
+        }
+    }
 });
