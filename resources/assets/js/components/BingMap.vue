@@ -20,7 +20,7 @@ export default {
         'bing-map-api-key',
         'device-id'
         ],
-    data: function () {
+    data: function() {
         return {
             deviceGeoCoordinate: []
         }
@@ -30,29 +30,29 @@ export default {
             .then(res => {
                 this.deviceGeoCoordinate = res.data.data
             })
-            .then(() => {
-                    const map = new Microsoft.Maps.Map('#myMap', {
-                        credentials: this.bingMapApiKey,
-                        center: new Microsoft.Maps.Location(
-                            this.deviceGeoCoordinate.position.lat, 
-                            this.deviceGeoCoordinate.position.lng
-                        )   
-                    });
+            // .then(() => {
+            //         const map = new Microsoft.Maps.Map('#myMap', {
+            //             credentials: this.bingMapApiKey,
+            //             center: new Microsoft.Maps.Location(
+            //                 this.deviceGeoCoordinate.position.lat, 
+            //                 this.deviceGeoCoordinate.position.lng
+            //             )   
+            //         });
 
-                    const center = map.getCenter();
+            //         const center = map.getCenter();
 
-                    //Create custom Pushpin
-                    const pin = new Microsoft.Maps.Pushpin(center, {
-                        color: 'red',
-                        title: 'My Micro Controller',
-                        subTitle: 'Taken at' + this.deviceGeoCoordinate.taken_at.date,
-                        text: this.deviceId
-                    });
+            //         //Create custom Pushpin
+            //         const pin = new Microsoft.Maps.Pushpin(center, {
+            //             color: 'red',
+            //             title: 'My Micro Controller',
+            //             subTitle: 'Taken at' + this.deviceGeoCoordinate.taken_at.date,
+            //             text: this.deviceId
+            //         });
 
-                    //Add the pushpin to the map
-                    map.entities.push(pin);
-                }
-            )
+            //         //Add the pushpin to the map
+            //         map.entities.push(pin);
+            //     }
+            // )
             .catch(err => {
                 console.log(err);
             });
@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
     #myMap {
         position: relative;
         height: 400px;

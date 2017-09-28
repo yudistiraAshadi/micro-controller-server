@@ -17,17 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('Device')->group(function () {
-    Route::prefix('device')->group(function () {
-        // Device routes
-        Route::get('/', 'DeviceController@index');
-        Route::get('/{id}', 'DeviceController@show');
-        Route::post('/', 'DeviceController@store');
-        Route::delete('/{id}', 'DeviceController@delete');
+Route::group([
+    'namespace' => 'Device',
+    'prefix' => 'device',
+    'middleware' => 'auth:api'
+], function () {
+    // Device routes
+    Route::get('/', 'DeviceController@index');
+    Route::get('/{id}', 'DeviceController@show');
+    Route::post('/', 'DeviceController@store');
+    Route::delete('/{id}', 'DeviceController@delete');
 
-        // Device Geo coordinate routes
-        Route::get('/geo-coordinate', 'DeviceGeoCoordinateController@index');
-        Route::get('/geo-coordinate/{id}', 'DeviceGeoCoordinateController@show');
-        Route::post('/geo-coordinate', 'DeviceGeoCoordinateController@store');
-    });
+    // Device Geo coordinate routes
+    Route::get('/geo-coordinate', 'DeviceGeoCoordinateController@index');
+    Route::get('/geo-coordinate/{id}', 'DeviceGeoCoordinateController@show');
+    Route::post('/geo-coordinate', 'DeviceGeoCoordinateController@store');
 });
