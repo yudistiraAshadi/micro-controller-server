@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\Resource;
 
 use App\Device;
-use App\Http\Resources\DeviceGeoCoordinateResource;
+use App\Http\Resources\DeviceGeoLocationResource;
 
 class DeviceResource extends Resource
 {
@@ -22,7 +22,7 @@ class DeviceResource extends Resource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'device_geo_coordinates' => 
-                DeviceGeoCoordinateResource::collection(
+                DeviceGeoLocationResource::collection(
                     Device::find($this->id)
                         ->deviceGeoCoordinates()
                         ->orderBy('taken_at', 'desc')

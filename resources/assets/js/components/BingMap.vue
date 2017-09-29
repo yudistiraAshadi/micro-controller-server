@@ -6,6 +6,9 @@
                     <div class="panel-heading">Device Locations</div>
 
                     <div class="panel-body">
+                        <location-composer
+                            v-on:setted-new-geo-location="newGeoLocation">
+                        </location-composer>
                         <div id="myMap"></div>
                     </div>
                 </div>
@@ -16,45 +19,49 @@
 
 <script>
 export default {
-    props: [
-        'bing-map-api-key',
-        'device-id'
-        ],
+    props: ['bing-map-api-key'],
     data: function() {
         return {
-            deviceGeoCoordinate: []
+            deviceGeoLocation: []
+        }
+    },
+    methods: {
+        newGeoLocation(geoLocation) {
+            this.deviceGeoLocation.push(geoLocation);
         }
     },
     mounted: function() {
-        axios.get('/api/device/geo-coordinate/' + this.deviceId)
-            .then(res => {
-                this.deviceGeoCoordinate = res.data.data
-            })
-            // .then(() => {
-            //         const map = new Microsoft.Maps.Map('#myMap', {
-            //             credentials: this.bingMapApiKey,
-            //             center: new Microsoft.Maps.Location(
-            //                 this.deviceGeoCoordinate.position.lat, 
-            //                 this.deviceGeoCoordinate.position.lng
-            //             )   
-            //         });
+        axios.get('/api/device/geo-location/1')
+            .then((res) => {
+                    this.deviceGeoLocation.push({
+                        latitude: res.data.data.position.lat, 
+                        longitude: res.data.data.position.lng
+                    });
 
-            //         const center = map.getCenter();
+                    const map = new Microsoft.Maps.Map('#myMap', {
+                        credentials: this.bingMapApiKey,
+                        center: new Microsoft.Maps.Location(
+                            14, 
+                            13
+                        )   
+                    });
 
-            //         //Create custom Pushpin
-            //         const pin = new Microsoft.Maps.Pushpin(center, {
-            //             color: 'red',
-            //             title: 'My Micro Controller',
-            //             subTitle: 'Taken at' + this.deviceGeoCoordinate.taken_at.date,
-            //             text: this.deviceId
-            //         });
+                    const center = map.getCenter();
 
-            //         //Add the pushpin to the map
-            //         map.entities.push(pin);
-            //     }
-            // )
+                    //Create custom Pushpin
+                    const pin = new Microsoft.Maps.Pushpin(center, {
+                        color: 'red',
+                        title: 'My Micro Controller',
+                        subTitle: 'Taken at',
+                        text: '1'
+                    });
+
+                    //Add the pushpin to the map
+                    map.entities.push(pin);
+                }
+            )
             .catch(err => {
-                console.log(err);
+                console.log(err.response);
             });
     }
 }

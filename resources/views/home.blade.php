@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <coordinate-composer></coordinate-composer>
-    <bing-map :bing-map-api-key="bingMapApiKey" :device-id="deviceId"></bing-map>
+    <bing-map :bing-map-api-key="bingMapApiKey"></bing-map>
 
 @endsection
 

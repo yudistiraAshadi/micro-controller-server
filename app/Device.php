@@ -8,6 +8,6 @@ class Device extends Model
 {
     public function deviceGeoCoordinates()
     {
-        return $this->hasMany('App\DeviceGeoCoordinate');
+        return $this->hasMany('App\DeviceGeoLocation');
     }
 }

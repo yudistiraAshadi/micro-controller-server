@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DeviceGeoCoordinate extends Model
+class DeviceGeoLocation extends Model
 {
     const CREATED_AT = 'taken_at';
     public $updated_at = '';

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeviceGeoCoordinatesTable extends Migration
+class CreateDeviceGeoLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDeviceGeoCoordinatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('device_geo_coordinates', function (Blueprint $table) {
+        Schema::create('device_geo_locations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('device_id')->unsigned()->index();
             $table->decimal('lat', 10, 6);
@@ -33,6 +33,6 @@ class CreateDeviceGeoCoordinatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('device_geo_coordinates');
+        Schema::dropIfExists('device_geo_locations');
     }
 }

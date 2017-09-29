@@ -19,8 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([
     'namespace' => 'Device',
-    'prefix' => 'device',
-    'middleware' => 'auth:api'
+    'prefix' => 'device'
 ], function () {
     // Device routes
     Route::get('/', 'DeviceController@index');
@@ -28,8 +27,8 @@ Route::group([
     Route::post('/', 'DeviceController@store');
     Route::delete('/{id}', 'DeviceController@delete');
 
-    // Device Geo coordinate routes
-    Route::get('/geo-coordinate', 'DeviceGeoCoordinateController@index');
-    Route::get('/geo-coordinate/{id}', 'DeviceGeoCoordinateController@show');
-    Route::post('/geo-coordinate', 'DeviceGeoCoordinateController@store');
+    // Device Geo Location routes
+    Route::get('/geo-location', 'DeviceGeoLocationController@index');
+    Route::get('/geo-location/{id}', 'DeviceGeoLocationController@show');
+    Route::post('/geo-location', 'DeviceGeoLocationController@store');
 });
