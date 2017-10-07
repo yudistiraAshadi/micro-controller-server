@@ -2,7 +2,9 @@
 
 @section('content')
 
-    <bing-map :bing-map-api-key="bingMapApiKey"></bing-map>
+    <!-- <bing-map :bing-map-api-key="bingMapApiKey"></bing-map> -->
+    <example></example>
+    <baidu-map-wrapper></baidu-map-wrapper>
 
 @endsection
 

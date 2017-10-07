@@ -11,11 +11,11 @@
                                 <input
                                     type="number"
                                     placeholder="latitude"
-                                    v-model.number="latitude">
+                                    v-model.number="lat">
                                 <input
                                     type="number"
                                     placeholder="longitude"
-                                    v-model.number="longitude"
+                                    v-model.number="lng"
                                     @keyup.enter="setNewGeoLocation">
                                 <button
                                     class="btn btn-primary"
@@ -32,19 +32,19 @@
 
 <script>
 export default {
-    data: function() {
+    data() {
         return {
-            latitude: null,
-            longitude: null
+            lat: null,
+            lng: null
         }
     },
     methods: {
-        setNewGeoLocation: function() {
+        setNewGeoLocation() {
             this.$emit('setted-new-geo-location', {
-                latitude: this.latitude,
-                longitude: this.longitude
+                lat: this.lat,
+                lng: this.lng
             });
-            this.latitude = this.longitude = null;
+            this.lat = this.lng = null;
         }
     }
 }

@@ -20,46 +20,53 @@
 <script>
 export default {
     props: ['bing-map-api-key'],
-    data: function() {
+    data() {
         return {
-            deviceGeoLocation: []
+            deviceGeoLocation: [],
+            devicePin: null,
+            map: null
         }
     },
     methods: {
         newGeoLocation(geoLocation) {
-            this.deviceGeoLocation.push(geoLocation);
+            this.deviceGeoLocation = geoLocation;
+
+            const newLocation = new Microsoft.Maps.Location(
+                this.deviceGeoLocation.lat,
+                this.deviceGeoLocation.lng
+            );
+
+            // Update the pushpin
+            this.devicePin.setLocation(newLocation);
+
+            // Center the map on the new location
+            // this.map.setView({center: newLocation});
         }
     },
-    mounted: function() {
-        axios.get('/api/device/geo-location/1')
+    mounted() {
+        axios.get('/api/device/geo-location/4')
             .then((res) => {
-                    this.deviceGeoLocation.push({
-                        latitude: res.data.data.position.lat, 
-                        longitude: res.data.data.position.lng
-                    });
+                this.deviceGeoLocation = res.data.data.position;
 
-                    const map = new Microsoft.Maps.Map('#myMap', {
-                        credentials: this.bingMapApiKey,
-                        center: new Microsoft.Maps.Location(
-                            14, 
-                            13
-                        )   
-                    });
+                this.map = new Microsoft.Maps.Map('#myMap', {
+                    credentials: this.bingMapApiKey,
+                    center: new Microsoft.Maps.Location(
+                        res.data.data.position.lat,
+                        res.data.data.position.lng
+                    )   
+                });
 
-                    const center = map.getCenter();
+                //Create custom Pushpin
+                this.devicePin = new Microsoft.Maps.Pushpin(this.map.getCenter(), {
+                    color: 'red',
+                    title: 'My Micro Controller',
+                    // subTitle: 'Taken at ' + res.data.data.taken_at.date,
+                    text: '4'
+                });
 
-                    //Create custom Pushpin
-                    const pin = new Microsoft.Maps.Pushpin(center, {
-                        color: 'red',
-                        title: 'My Micro Controller',
-                        subTitle: 'Taken at',
-                        text: '1'
-                    });
-
-                    //Add the pushpin to the map
-                    map.entities.push(pin);
-                }
-            )
+                //Add the pushpin to the map
+                this.map.entities.push(this.devicePin);
+            })
             .catch(err => {
                 console.log(err.response);
             });
