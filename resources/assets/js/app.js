@@ -18,8 +18,9 @@ window.BaiduMap = require('vue-baidu-map');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('bing-map', require('./components/BingMap.vue'));
-Vue.component('location-composer', require('./components/LocationComposer.vue'));
+Vue.component('location-input', require('./components/LocationInput.vue'));
 Vue.component('baidu-map-wrapper', require('./components/BaiduMapWrapper.vue'));
+Vue.component('device-switch', require('./components/DeviceSwitch.vue'));
 
 Vue.use(BaiduMap.default, {
     ak: 'jVcNItiSs2FTaO7To7CGrDURQEzTGhQm'
@@ -27,9 +28,15 @@ Vue.use(BaiduMap.default, {
 
 const app = new Vue({
     el: '#app',
-    data() {
+    data () {
         return {
+            deviceId: 1,
             bingMapApiKey: 'AutpW7XvvMYgzgHiBr1bkKSdcj40UTxf4cAYiy5H8-sHADHVHgypR_GJnGDZoo5N'
+        }
+    },
+    methods: {
+        switchDevice (data) {
+            this.deviceId = data.newDeviceId;
         }
     }
 });

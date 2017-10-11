@@ -9,6 +9,8 @@ class DeviceGeoLocation extends Model
     const CREATED_AT = 'taken_at';
     public $updated_at = '';
 
+    protected $touches = ['device'];
+
     protected $fillable = [
         'device_id',
         'lat',

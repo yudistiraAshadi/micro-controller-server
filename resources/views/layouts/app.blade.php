@@ -13,6 +13,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- Socket.IO JavaScript client library -->
+    <!-- <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script> -->
+
     @stack('styles')
     @stack('scripts-head')
 </head>

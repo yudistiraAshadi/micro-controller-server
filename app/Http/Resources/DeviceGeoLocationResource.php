@@ -15,10 +15,8 @@ class DeviceGeoLocationResource extends Resource
     public function toArray($request)
     {
         return [
-            'position' => [
-                'lat' => $this->lat,
-                'lng' => $this->lng,
-            ],
+            'type' => 'Point',
+            'coordinates' => [$this->lat, $this->lng],
             'taken_at' => $this->taken_at,
         ];
     }
