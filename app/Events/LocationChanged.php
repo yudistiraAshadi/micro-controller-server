@@ -10,18 +10,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class LocationChanged
+use App\DeviceGeoLocation;
+
+class LocationChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $deviceGeoLocation;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(DeviceGeoLocation $deviceGeoLocation)
     {
-        //
+        $this->deviceGeoLocation = $deviceGeoLocation;
     }
 
     /**
@@ -31,6 +35,6 @@ class LocationChanged
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('device-location');
     }
 }

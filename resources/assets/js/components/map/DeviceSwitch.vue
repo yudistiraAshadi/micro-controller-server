@@ -45,7 +45,7 @@ export default {
             this.newDeviceId = null;
         }
     },
-    mounted () {
+    created () {
         axios.get('/api/device/')
             .then((res) => {
                 const devices = res.data.data;

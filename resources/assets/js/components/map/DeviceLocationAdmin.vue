@@ -1,40 +1,42 @@
-<template lang="html">
+<template>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Device Locations</div>
 
-                    <div class="panel-body">
-                        <baidu-map 
-                            class="map"
-                            :center="center"
-                            :zoom="zoom"
-                            @ready="latestPosition">
-                            <bm-marker :position="center" />
-                            <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT" />
-                            <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"/>
-                        </baidu-map>
-                    </div>
-                </div>u
-            </div>
-        </div>
+        <!-- map/DeviceSwitch.vue -->
+        <device-switch
+            :device-id="deviceId"
+            v-on:device-switched="switchDevice" />
+
+        <!-- map/LocationInput.vue -->
+        <location-input
+            :device-id="deviceId"
+            :center="center" />
+
+        <!-- map/BaiduMapWrapper.vue -->
+        <baidu-map-wrapper
+            :device-id="deviceId"
+            :center="center"
+            :zoom="zoom" />
+
     </div>
 </template>
 
 <script>
     export default {
-        props: ['device-id'],
         data () {
             return {
+                deviceId: 1,
                 center: {
                     lat: null,
                     lng: null
                 },
-                zoom: 15
+                zoom: 15,
+                foo: null
             }
         },
         methods: {
+            switchDevice (data) {
+                this.deviceId = data.newDeviceId;
+            },
             latestPosition () {
                 axios.get('/api/device/geo-location/' + this.deviceId)
                     .then((res) => {
@@ -54,13 +56,18 @@
             deviceId: function () {
                 this.latestPosition()
             }
+        },
+        created () {
+            this.latestPosition();
+
+            Echo.channel('device-location')
+                .listen('LocationChanged', (e) => {
+                    this.center.lat = e.deviceGeoLocation.lat;
+                    this.center.lng = e.deviceGeoLocation.lng;
+                });
         }
     }
 </script>
 
-<style scoped lang="css">
-    .map {
-        width: 100%;
-        height: 400px;
-    }
+<style>
 </style>
