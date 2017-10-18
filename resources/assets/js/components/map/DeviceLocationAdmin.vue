@@ -6,6 +6,10 @@
             :device-id="deviceId"
             v-on:device-switched="switchDevice" />
 
+        <!-- map/LocationEmitter.vue -->
+        <location-emitter
+            :device-id="deviceId" />
+
         <!-- map/LocationInput.vue -->
         <location-input
             :device-id="deviceId"

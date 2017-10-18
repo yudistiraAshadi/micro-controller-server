@@ -18,6 +18,7 @@ window.BaiduMap = require('vue-baidu-map');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('location-input', require('./components/map/LocationInput.vue'));
+Vue.component('location-emitter', require('./components/map/LocationEmitter.vue'));
 Vue.component('baidu-map-wrapper', require('./components/map/BaiduMapWrapper.vue'));
 Vue.component('device-switch', require('./components/map/DeviceSwitch.vue'));
 Vue.component('device-location-admin', require('./components/map/DeviceLocationAdmin.vue'));
